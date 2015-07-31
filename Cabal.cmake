@@ -14,7 +14,7 @@ function (add_cabal_build)
           DEPENDS ${arg_DEPENDS} 
                   ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${executable}${CMAKE_EXECUTABLE_SUFFIX})
       install (PROGRAMS
-        ${CMAKE_CURRENT_BINARY_DIR}/build/${executable}/${executable}${CMAKE_EXECUTABLE_SUFFIX}
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${executable}${CMAKE_EXECUTABLE_SUFFIX}
         DESTINATION bin)
     endforeach(executable)
 
