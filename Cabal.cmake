@@ -22,9 +22,10 @@ function (add_cabal_build)
       DEPENDS ${arg_SOURCES} ${arg_DEPENDS} ${CMAKE_BINARY_DIR}/cabal.sandbox.config
       COMMAND PATH=${Haskell_GHC_DIR} ${Haskell_CABAL_EXECUTABLE} sandbox init --sandbox=${CMAKE_BINARY_DIR}/.cabal-sandbox
       COMMAND PATH=${Haskell_GHC_DIR} ${Haskell_CABAL_EXECUTABLE} sandbox add-source ${arg_SANDBOX_SOURCES}
-      COMMAND ${Haskell_CABAL_EXECUTABLE} install --with-ghc=${Haskell_GHC_EXECUTABLE} --extra-prog-path=$ENV{HOME}/.cabal/bin --only-dependencies --jobs
-      COMMAND ${Haskell_CABAL_EXECUTABLE} configure --with-ghc=${Haskell_GHC_EXECUTABLE} --builddir=${CMAKE_CURRENT_BINARY_DIR}
+      COMMAND ${Haskell_CABAL_EXECUTABLE} install --with-ghc=${Haskell_GHC_EXECUTABLE} --extra-prog-path=$ENV{HOME}/.cabal/bin --only-dependencies --enable-split-objs --jobs
+      COMMAND ${Haskell_CABAL_EXECUTABLE} configure --with-ghc=${Haskell_GHC_EXECUTABLE} --builddir=${CMAKE_CURRENT_BINARY_DIR} --enable-split-objs
       COMMAND ${Haskell_CABAL_EXECUTABLE} build --with-ghc=${Haskell_GHC_EXECUTABLE} --ghc-option=-O2 --jobs --builddir=${CMAKE_CURRENT_BINARY_DIR}
+      COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_BINARY_DIR}/build-stamp
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
       OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/build-stamp)
 
